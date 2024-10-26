@@ -19,6 +19,69 @@
     background-clip: text;
     -webkit-background-clip: text;
     }
+
+.main-content {
+    margin-left: 200px;
+    padding: 20px;
+    width: calc(100% - 200px);
+}
+
+header h1 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease;
+}
+
+.card {
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    color: #3b82f6;
+}
+
+.analytics {
+    animation: fadeIn 1.5s ease;
+}
+
+.chart {
+    height: 180px;
+    font-size: 18px;
+    border-radius: 8px;
+    animation: popIn 0.8s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
         ::-webkit-scrollbar{
         width: 10px !important;
         border-radius: 10px !important;
@@ -37,7 +100,7 @@
 </head>
 <body style="background-color: rgb(15, 0, 29);">
     <div class="container-fluid py-3">
-        <h1 class="text-center clip mb-4 mt-5">Marketing Dashboard</h1>
+        <p class="text-center clip mb-4 mt-5" style="font-size: 50px;">Marketing Dashboard</p>
         
         <!-- KPI Cards -->
         <div class="row text-center">
@@ -79,6 +142,45 @@
         </div>
         <p class="p-0 text-center mt-5" style="font-size: 50px;"><span class="auto-type clip"></span></p>
         <p class="p-0 text-center clip mb-5" style="font-size: 50px;" data-aos="zoom-in" data-aos-duration="1300" data-aos-easing="ease-in-out">Email Generator for Marketing</p>
+        <div class="row justify-content-center text-white">
+              <header>
+                <h1>Marketing & Analytics Dashboard</h1>
+              </header>
+              
+              <section class="cards row mt-4">
+                <div class="col-md-4">
+                  <div class="card bg-dark shadow-sm" id="email">
+                    <div class="card-body text-center">
+                      <h3>Email Campaigns</h3>
+                      <p class="fs-5 text-white">Open Rate: <span id="emailRate">72%</span></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card  bg-dark shadow-sm" id="sms">
+                    <div class="card-body text-center">
+                      <h3>SMS Campaigns</h3>
+                      <p class="fs-5 text-white">Click Rate: <span id="smsRate">50%</span></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card  bg-dark shadow-sm" id="social">
+                    <div class="card-body text-center">
+                      <h3>Social Media</h3>
+                      <p class="fs-5 text-white">Engagement: <span id="socialEngagement">85%</span></p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+        
+              <section class="analytics mt-4">
+                <h2>Analytics</h2>
+                <div class="chart bg-success d-flex align-items-center justify-content-center p-4 mt-3 mb-3">
+                  <p class="fs-4 text-black">Loading Chart...</p>
+                </div>
+              </section>
+          </div>
         <div class="row justify-content-center">
             <div class="col-md-5 text-white">
                 <div class="card bg-dark shadow rounded-4 mt-4"data-aos="zoom-in" data-aos-duration="1500" data-aos-easing="ease-in-out">
@@ -143,6 +245,30 @@
           typeSpeed: 120,
           backSpeed: 40,
         })
+    </script>
+    <script>
+        let emailOpenRate = 72;
+let smsClickRate = 50;
+let socialEngagement = 85;
+
+function updateRates() {
+  document.getElementById("emailRate").textContent = `${emailOpenRate++}%`;
+  document.getElementById("smsRate").textContent = `${smsClickRate++}%`;
+  document.getElementById("socialEngagement").textContent = `${socialEngagement++}%`;
+
+  if (emailOpenRate > 80) emailOpenRate = 72;
+  if (smsClickRate > 60) smsClickRate = 50;
+  if (socialEngagement > 90) socialEngagement = 85;
+}
+
+setInterval(updateRates, 2000);
+
+setTimeout(() => {
+  const chart = document.getElementById("chart");
+  chart.innerHTML = "<p>Chart Loaded: Real-time Engagement Stats</p>";
+  chart.style.backgroundColor = "#4ade80";
+}, 3000);
+
     </script>
 </body>
 </html>
