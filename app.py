@@ -1,12 +1,16 @@
 from flask import Flask, render_template, request
+from dotenv import load_dotenv, dotenv_values
 import google.generativeai as genai
-import os # Import the os module
+
+# Load environment variables from .env file
+load_dotenv()
+env_vars = dotenv_values(".env")  # Load .env variables into a dictionary
 
 # Initialize Flask application
 app = Flask(__name__)
 
 # Set up Gemini model
-genai.configure(api_key=os.getenv("GEMINI_API_KEY")) # Access variable directly
+genai.configure(api_key=env_vars.get("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 @app.route("/", methods=["GET", "POST"])
@@ -29,6 +33,5 @@ def index():
 
     return render_template("index.html", email_text=email_text, email_topic=email_topic, product_description=product_description)
 
-# The following lines are for local development and can be removed for Vercel deployment
-# if __name__ == "__main__":
-#     app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
