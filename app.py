@@ -34,4 +34,4 @@ def index():
     return render_template("index.html", email_text=email_text, email_topic=email_topic, product_description=product_description)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
